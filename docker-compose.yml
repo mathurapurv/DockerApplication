@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  mongo_1:
+    image: mongo:latest
+    container_name: mongo_1
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    networks:
+      - docker_network_1
+    volumes:
+      - mongo_data:/data/db
+
+  mongo-express_1:
+    image: mongo-express:latest
+    container_name: mongo-express_1
+    depends_on:
+      - mongo_1
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin@mongo_1:27017/
+    networks:
+      - docker_network_1
+
+  my_springboot_app1:
+    build: .
+    container_name: my_springboot_app1
+    depends_on:
+      - mongo_1
+    ports:
+      - "8080:8080"
+    networks:
+      - docker_network_1
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://admin:admin@mongo_1:27017/admin?authSource=admin
+
+networks:
+  docker_network_1:
+    driver: bridge
+
+volumes:
+  mongo_data:
