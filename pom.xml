@@ -12,9 +12,9 @@
     </parent>
     
     <groupId>com.apurv</groupId>
-    <artifactId>string-inverter</artifactId>
+    <artifactId>buzzword-manager</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>string-inverter</name>
+    <name>buzzword-manager</name>
     <description>Demo project for Spring Boot</description>
     
     <properties>
