@@ -11,8 +11,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: admin
     networks:
       - docker_network_1
-    volumes:
-      - mongo_data:/data/db
+
 
   mongo-express_1:
     image: mongo-express:latest
@@ -28,9 +27,9 @@ services:
     networks:
       - docker_network_1
 
-  my_springboot_app1:
-    build: .
-    container_name: my_springboot_app1
+  my_buzzword-app:
+    image: buzzword-app:1.0.0
+    container_name: my_buzzword-app
     depends_on:
       - mongo_1
     ports:
