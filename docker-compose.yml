@@ -44,5 +44,3 @@ networks:
   docker_network_1:
     driver: bridge
 
-volumes:
-  mongo_data:
